@@ -1,0 +1,103 @@
+<input type="text" class="form-control" [(ngModel)]="carName">
+<button [disabled]="!canAddCar" class="btn btn-primary" (click)="addCar()">Добавить машину</button>
+<hr>
+<h4 class="title">Директива *ngIf</h4>
+<p *ngIf="!addCarStatus; else successStatus">Машина не добавлена!</p>
+<ng-template #successStatus>
+    <p>Машина добавлена!</p>
+</ng-template>
+
+<hr>
+<h4 class="title">Директива *ngFor</h4>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+        <app-car *ngFor="let car of cars"></app-car>
+    </div>
+    <div class="col-xs-3">
+        <ul>
+            <li *ngFor="let item of items">
+              <b>{{ item.id }}</b> - <i>{{ item.name }}</i>
+            </li>
+          </ul>          
+    </div>
+    <div class="col-xs-3">
+        <ul>
+            <li *ngFor="let item of items; let idx = index">
+              <b>{{ idx + 1 }}</b> - <b>{{ item.id }}</b> - <i>{{ item.name }}</i>
+            </li>
+        </ul>        
+    </div>
+  </div>
+</div>
+
+<hr>
+<h4 class="title">Директива *ngStyle и *ngClass</h4>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+        <ul>
+            <li *ngFor="let car of cars; let idx = index">
+              <div [ngStyle]="{backgroundColor: (idx + 1) % 2 ? 'yellow' : 'transparent'}">
+                <b>{{ idx }}</b> - <i>{{ car }}</i>
+              </div>
+            </li>
+        </ul>            
+    </div>
+    <div class="col-xs-3">
+        <ul>
+            <li *ngFor="let car of cars; let idx = index">
+              <div [ngStyle]="{'background-color': (idx + 1) % 2 ? 'yellow' : 'blue', 'color': 'white'}">
+                <b>{{ idx }}</b> - <i>{{ car }}</i>
+              </div>
+            </li>
+        </ul>           
+    </div>
+    <div class="col-xs-3">
+        <ul>
+            <li *ngFor="let car of cars; let idx = index">
+              <div [ngStyle]="{'background-color': (idx + 1) % 2 ? 'yellow' : 'lightblue', 'color': 'black'}" [ngClass]="{'big-text' : setBigCarText(car)}">
+                <b>{{ idx }}</b> - <i>{{ car }}</i>
+              </div>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<hr>
+<h4 class="title">Биндинг</h4>
+<!-- The first type of transporting data -->
+
+<input type="text" class="form-control" (input)="onInput($event)">
+<p>{{ inputText }}</p>
+
+<!-- The second type of transporting data -->
+
+<input type="text" class="form-control" #myInp (input)="onInput(myInp.value)">
+<p>{{ inputText }}</p>
+
+<input type="text" class="form-control" (keyup.enter)="onKeyUp($event)">
+<p>{{ inputText }}</p>
+
+<h5 class="title">Two way binding</h5>
+
+<input type="text" class="form-control" [(ngModel)]="inputText">
+<p>{{ inputText }}</p>
+
+<hr>
+<h4 class="title">Пайпы</h4>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+        <ul>
+            <li *ngFor="let pipe of pipeItems; let idx = index">
+              <div>
+                <b>{{ idx + 1 }}</b> - <i>{{ pipe | date: 'medium' }}</i>
+              </div>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>
+
